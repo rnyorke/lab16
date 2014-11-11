@@ -15,6 +15,7 @@ missile2 = drawpad.create_rectangle(395,582,405,598)
 player = drawpad.create_oval(390,580,410,600, fill="blue")
 enemy = drawpad.create_rectangle(50,50,100,60, fill="red")
 missileFired = 0
+
 muevate = 0
 direction = 5
 
@@ -53,11 +54,16 @@ class myApp(object):
         drawpad.move(enemy, direction, 0)
         if missileFired == True:
             drawpad.move(missile,0,-10)
-
+        if missileFired1 == True:
+            drawpad.move(missile1,0,-10)
+        if missileFired2 == True:
+            drawpad.move(missile2,0,-10)
         drawpad.after(5,self.animate)
     def key(self,event):
         global player
         global missileFired
+        global missileFired1
+        global missileFired2
         px1,py1,px2,py2 = drawpad.coords(player)
         if event.char == "w":
             if py1 > 0:
@@ -83,13 +89,28 @@ class myApp(object):
                 drawpad.move(missile,4,0)  
                 drawpad.move(missile1, 4, 0)
                 drawpad.move(missile2, 4, 0) 
-        if event.char == " ":
+        if event.char == "1":
             print "working"  
             missileFired = True       
-        mx1,my1.mx2,my2 = drawpad.coords(missile)
+        mx1,my1,mx2,my2 = drawpad.coords(missile)
         if my1 < 0 :
-            drawpad.move(missile, mx1-px1, py1 - my1)
-            missileFired = False                                          
+         missileFired = False     
+     
+        if event.char == "2":
+            print "working"  
+            missileFired1 = True       
+        mx3,my3,mx4,my4 = drawpad.coords(missile1)
+        if my1 < 0 :
+         missileFired1 = False 
+         
+        if event.char == "3":
+            print "working"  
+            missileFired2 = True       
+        mx5,my5,mx6,my6 = drawpad.coords(missile2)
+        if my1 < 0 :
+         missileFired2 = False       
+                                                                         
+                                                                                                                                             
     def collisionDetect(self,rocket):
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
         
