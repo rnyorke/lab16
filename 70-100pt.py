@@ -66,7 +66,10 @@ class myApp(object):
                 drawpad.move(player,0,4)
         if event.char == "d":
             if px2 < 800:
-                drawpad.move(player,4,0)            
+                drawpad.move(player,4,0)   
+        if event.char == " ":
+            drawpad.create_rectangle(px1 + 5,py1 - 30 ,px2 - 5,py1 , fill="black")
+            print "working"         
                                                     
     def collisionDetect(self,rocket):
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
