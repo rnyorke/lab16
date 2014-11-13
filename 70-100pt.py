@@ -8,9 +8,8 @@
 from Tkinter import *
 root = Tk()
 drawpad = Canvas(root, width=800,height=600, background='white')
-
-player = drawpad.create_oval(390,580,410,600, fill="blue")
 rocket1 = drawpad.create_rectangle(400,585,405,590, fill = "black")
+player = drawpad.create_oval(390,580,410,600, fill="blue")
 enemy = drawpad.create_rectangle(50,50,100,60, fill="red")
 rocket1Fired = False
 direction = 5
@@ -36,9 +35,6 @@ class myApp(object):
         self.rocketsTxt = Label(root, text=str(self.rockets), width=len(str(self.rockets)), bg='green')
         self.rocketsTxt.pack()
         
-        if rocket1Fired == True:
-            self.rockets = a - 1
-        
         # Adding the drawpad, adding the key listener, starting animation
         drawpad.pack()
         root.bind_all('<Key>', self.key)
@@ -63,6 +59,9 @@ class myApp(object):
         
         if rocket1Fired == True:
             drawpad.move(rocket1, 0,-10)
+        if ry2 < 0:
+            rocket1Fired = False
+            drawpad.move(rocket1, px1-rx1 + 3, py1-ry1 + 3)
         drawpad.after(5,self.animate)
 
     def key(self,event):
@@ -93,13 +92,14 @@ class myApp(object):
                     drawpad.move(rocket1,4,0) 
         if event.char == " ":
             rocket1Fired = True
-        if ry2 < 0:
-            rocket1Fired = False
-            drawpad.move(rocket1, px1-rx1 + 3, py1-ry1 + 3)
+            self.rockets = self.rockets - 1
+            self.rocketsTxt.configure(text=str(self.rockets))
             
 
     
     def collisionDetect(self, rocket):
-        rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
+        rx1,ry1,rx2,ry2 = drawpad.coords(rocket1)
+        ex1,ey1,ex2,ey2 = drawpad.coords(enemy)
+        
 app = myApp(root)
 root.mainloop()
