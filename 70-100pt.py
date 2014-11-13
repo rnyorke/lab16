@@ -58,7 +58,8 @@ class myApp(object):
         drawpad.move(enemy, direction, 0)
         
         if rocket1Fired == True:
-            drawpad.move(rocket1, 0,-10)
+            drawpad.move(rocket1, 0,-4)
+            didWeHit = self.collisionDetect()
         if ry2 < 0:
             rocket1Fired = False
             drawpad.move(rocket1, px1-rx1 + 3, py1-ry1 + 3)
@@ -97,10 +98,15 @@ class myApp(object):
             
 
     
-    def collisionDetect(self, rocket):
+    def collisionDetect(self):
+        global enemy
+        global rocket1
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket1)
         ex1,ey1,ex2,ey2 = drawpad.coords(enemy)
-        if (rx1 > ex1 and rx2 < ex2) and (ry1 > ey1 and ry2 < ey2):
+        if (rx1 > ex1 and rx2 < ex2) and (ry1 > ey1 and ry2 < ey2 ):
+            print "hello"
             drawpad.delete(enemy)
+            drawpad.delete(rocket1)
+            
 app = myApp(root)
 root.mainloop()
